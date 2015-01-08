@@ -1,6 +1,8 @@
 import kivy
 kivy.require('1.8.0')
 
+__version__ = '0.0.1'
+
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.anchorlayout import AnchorLayout

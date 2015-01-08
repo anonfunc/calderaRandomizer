@@ -1,0 +1,31 @@
+* Caldera Randomizer
+Randomizes setup for the Caldera game.
+
+* Usage
+#+begin_src
+python caldera.py
+#+end_src
+
+* Gui Usage
+Install Kivy.
+#+begin_src
+kivy main.py 
+#+end_src
+
+* Android Usage
+Either use Kivy Launcher or buildozer.
+
+** Kivy Launcher
+Copy this whole directory into the directory Kivy Launcher specifies.
+
+** Buildozer
+#+begin_src
+buildozer -v android debug
+#+end_src
+
+I needed the following prereqs on OS X:
+- cython (pip installable)
+- buildozer (pip installable)
+- CLI Tools (App Store)
+
+
