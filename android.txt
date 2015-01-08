@@ -1,0 +1,3 @@
+title=Caldera Randomizer
+author=anonfunc
+orientation=portrait
