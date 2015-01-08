@@ -10,9 +10,8 @@ from kivy.uix.textinput import TextInput
 
 from kivy.graphics import Color, Rectangle
 
-from caldera import board, fill_board
+from caldera import board, fill_board, reset_board
 
-fill_board()
 
 
 class CalderaBlockWidget(Widget):
@@ -21,22 +20,23 @@ class CalderaBlockWidget(Widget):
     row = 0
     box_size = 0
     pos = (0, 0)
-    def __init__(self, col, row, color, **kwargs):
+    def __init__(self, col, row, **kwargs):
         super(CalderaBlockWidget, self).__init__(**kwargs)
         self.col = col;
         self.row = row;
-        self.color = color
         self.size = Window.size
         self.box_size = min(self.size[0], self.size[1])/5
         self.set_pos()
         self.draw_me()
 
     def draw_me(self):
+      self.canvas.clear()
       with self.canvas:
         self.my_color()
         Rectangle(pos = self.pos, size=(self.box_size,self.box_size))
 
     def my_color(self):
+      self.color = board(self.col, self.row)
       if self.color == 'B':
         Color(0,0,1)
       elif self.color == 'G':
@@ -61,7 +61,15 @@ class CalderaWidget(Widget):
         super(CalderaWidget, self).__init__(**kwargs)
         for row in range(5):
           for col in range(5):
-            self.add_widget(CalderaBlockWidget(col, row, board(col, row)))
+            w = CalderaBlockWidget(col, row)
+            self.boardwidgets += [w]
+            self.add_widget(w)
+
+    def on_touch_down(self, touch):
+      reset_board()
+      fill_board()
+      for w in self.boardwidgets:
+          w.draw_me()
 
 class MyApp(App):
     def build(self):
@@ -73,4 +81,5 @@ class MyApp(App):
         return l
 
 if __name__ == '__main__':
+  fill_board()
   MyApp().run()
